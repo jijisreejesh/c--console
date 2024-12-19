@@ -12,3 +12,4 @@
 /home/user/jiji/c#/obj/Debug/net8.0/c#.pdb
 /home/user/jiji/c#/obj/Debug/net8.0/c#.genruntimeconfig.cache
 /home/user/jiji/c#/obj/Debug/net8.0/ref/c#.dll
+/home/user/jiji/c#/obj/Debug/net8.0/c#.sourcelink.json
