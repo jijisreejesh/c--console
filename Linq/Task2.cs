@@ -1,6 +1,7 @@
 using Microsoft.VisualBasic;
 using System.Collections.Generic;
 using System.Data.Common;
+using System.Globalization;
 namespace MyNamespace
 {
 
@@ -180,8 +181,17 @@ namespace MyNamespace
 
 
             //9. List all unique project names across all employees.
+             Console.WriteLine("\n9. List all unique project names across all employees.");
+             var ans9=e.Employees.SelectMany(i=>i.Project.Select(j=>new {ProjectName=j.Name}))
+             .Distinct();
+             
+             foreach(var i in ans9){
+                Console.WriteLine(i);
+             }
+
+
             //10. Calculate the total number of hours worked by all employees combined.
-            Console.WriteLine("\nCalculate the total number of hours worked by all employees combined.");
+            Console.WriteLine("\n10.Calculate the total number of hours worked by all employees combined.");
             var ans10=e.Employees.Select(i=>new {Total=
                 i.Project.Sum(j=>j.HoursWorked)
             });
