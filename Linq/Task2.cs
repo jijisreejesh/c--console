@@ -136,14 +136,24 @@ namespace MyNamespace
 
 
             //5. Find the name of the employee who worked the most hours on "Project A"
+            // Console.WriteLine("\n5.Find the name of the employee who worked the most hours on \"Project A\"");
+            // var ans5 = e.Employees
+            //  .Where(i => i.Project.Any(p => p.Name == "Project A"))  
+            // .Select(i => new
+            // {
+            //     EmployeeName = i.Name,
+            //     MaxHoursWorked = i.Project.Max(p => p.HoursWorked)
+            // })
+            // .OrderByDescending(x => x.MaxHoursWorked) 
+            // .FirstOrDefault(); 
+
             Console.WriteLine("\n5.Find the name of the employee who worked the most hours on \"Project A\"");
             var ans5 = e.Employees
-             .Where(i => i.Project.Any(p => p.Name == "Project A"))  
+             .Where(i => i.Project.Any(p => p.Name == "Project A"))
             .Select(i => new
             {
                 EmployeeName = i.Name,
-                MaxHoursWorked = i.Project
-            .Max(p => p.HoursWorked)
+                MaxHoursWorked = i.Project.Max(p => p.HoursWorked)
             })
             .OrderByDescending(x => x.MaxHoursWorked) 
             .FirstOrDefault(); 
