@@ -87,7 +87,7 @@ namespace MyNamespace
             };
 
             //1.Find all employees who are older than 30 and work in the "Development" department.
-            Console.WriteLine("\nFind all employees who are older than 30 and work in the \"Development\" department.");
+            Console.WriteLine("\n1.Find all employees who are older than 30 and work in the \"Development\" department.");
             var first = e.Employees.Where(j => j.Age > 30 && e.Departments.Any(i => i.Name == "Development" && i.Id == j.DepartmentId));
             foreach (var i in first)
             {
@@ -95,7 +95,7 @@ namespace MyNamespace
             }
 
             //2. Retrieve the names of employees along with their department names.
-            Console.WriteLine("\nRetrieve the names of employees along with their department names.");
+            Console.WriteLine("\n2.Retrieve the names of employees along with their department names.");
             var selectNames = e.Employees.Join(
              e.Departments,
              empl => empl.DepartmentId,
@@ -113,7 +113,7 @@ namespace MyNamespace
 
 
             //3. List the names of employees and the total hours they have worked across all projects.
-            Console.WriteLine("\nList the names of employees and the total hours they have worked across all projects.");
+            Console.WriteLine("\n3.List the names of employees and the total hours they have worked across all projects.");
             var ans3 = e.Employees.Select(i => new { Name = i.Name, HoursWorked = i.Project.Sum(j => j.HoursWorked) });
             foreach (var i in ans3)
             {
@@ -121,7 +121,7 @@ namespace MyNamespace
             }
 
             //4. Group employees by department and calculate the average age of employees in each department.
-            Console.WriteLine("\n Group employees by department and calculate the average age of employees in each department.");
+            Console.WriteLine("\n 4.Group employees by department and calculate the average age of employees in each department.");
             var ans4 = e.Employees.GroupBy(i => i.DepartmentId)
             .Select(s => new
             {
@@ -136,7 +136,7 @@ namespace MyNamespace
 
 
             //5. Find the name of the employee who worked the most hours on "Project A"
-            Console.WriteLine("\nFind the name of the employee who worked the most hours on \"Project A\"");
+            Console.WriteLine("\n5.Find the name of the employee who worked the most hours on \"Project A\"");
             var ans5 = e.Employees
              .Where(i => i.Project.Any(p => p.Name == "Project A"))  
             .Select(i => new
@@ -159,7 +159,7 @@ namespace MyNamespace
 
 
             //6. Extract a list of employees with their names and the names of projects they have worked on.
-            Console.WriteLine("\nExtract a list of employees with their names and the names of projects they have worked on.");
+            Console.WriteLine("\n6.Extract a list of employees with their names and the names of projects they have worked on.");
             var ans6=e.Employees.Select(i=>new {
                 EmployeeName=i.Name,
                 Projects=i.Project.Select(j=>j.Name)
@@ -173,7 +173,15 @@ namespace MyNamespace
             }
            
             //7. List the names of employees who have worked more than 100 hours on any single project.
-            
+            Console.WriteLine("\n7.List the names of employees who have worked more than 100 hours on any single project.");
+            var singleProject=e.Employees.Where(i=>i.Project.Any(j=>j.HoursWorked>100)).Select(i=>i.Name);
+            foreach(var i in singleProject)
+            {
+                Console.WriteLine(i);
+            }
+
+
+
             //8. Check if there is any employee who has worked on "Project D".
             Console.WriteLine("\n8. Check if there is any employee who has worked on \"Project D\".");
              var ans8 = e.Employees.Any(i => i.Project.Any(p => p.Name == "Project D")) ;
