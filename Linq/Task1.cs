@@ -121,8 +121,6 @@
 //             Console.WriteLine(i);
 //         }
 
-//         Task2Class task=new Task2Class();
-//         task.fun1();
 //         }
 //      }
 // }
