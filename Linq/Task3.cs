@@ -175,11 +175,32 @@ class Task3 : datas
             foreach (var j in i)
             {
                 Console.WriteLine($"{j.EmployeeName}");
+                  // Console.WriteLine($"Average Score of evaluation : {j.EvaluationScore}");
             }
             var averageScore = i.Average(r => r.EvaluationScore);
             Console.WriteLine($"Average Score of evaluation : {averageScore}");
         }
         
+
+
+          Console.WriteLine("\n6. List employees who have worked on more than one project in a managerial role (e.g., \"Lead\" or \"Manager\").");
+        var ans6=employeesDetails.employees 
+        .Where(i=>i.empprojects.Count(j=>j.role.Contains("Manager"))>1).Select(p=>new{EmpName=p.name});
+        if(ans6.Any())
+        {
+            foreach (var i in ans6)
+        {
+                Console.WriteLine(i);   
+        }
+        }
+        else
+        {
+            Console.WriteLine("No Employees worked on more than one project in a managerial role");
+        }
+
+
+
+
          Console.WriteLine("\n7. List all unique skills possessed by employees, ordered alphabetically.");
         var ans7=employeesDetails.employees.SelectMany(i=>i.skills).Distinct().Order();
         foreach (var i in ans7)
@@ -252,22 +273,12 @@ class Task3 : datas
         }
     
     
-        // Console.WriteLine("\n5.Find all projects that have a deadline within the next 6 months and list the employees involved in those projects.");
+    //   Console.WriteLine("\n5.Find all projects that have a deadline within the next 6 months and list the employees involved in those projects.");
+    //  System.TimeSpan duration = new System.TimeSpan(180, 0, 0, 0);
+    //  System.DateTime newDate1 = DateTime.Now.Add(duration);
 
-         Console.WriteLine("\n6. List employees who have worked on more than one project in a managerial role (e.g., \"Lead\" or \"Manager\").");
-        var ans6=employeesDetails.employees 
-        .Where(i=>i.empprojects.Count(j=>j.role.Contains("Manager"))>1).Select(p=>new{EmpName=p.name});
-        if(ans6.Any())
-        {
-            foreach (var i in ans6)
-        {
-                Console.WriteLine(i);   
-        }
-        }
-        else
-        {
-            Console.WriteLine("No Employees worked on more than one project in a managerial role");
-        }
+    //  var ans5=employeesDetails.projects.Where(i=>i.deadline<);
+       
         
         
     }
