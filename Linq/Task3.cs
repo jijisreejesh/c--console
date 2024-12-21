@@ -197,6 +197,28 @@ class Task3 : datas
         Console.WriteLine(ans9);
 
 
+
+       Console.WriteLine("\n10. Create a summary report listing each department's name, total number of employees, total hours worked on projects, and average evaluation score."); 
+        var ans10=employeesDetails.departments.Select(i=>new {
+            DepartmentName=i.name ,
+            NumberOfEmployees=employeesDetails.employees.Count(k=>k.departmentId==i.id),
+            TotalHoursWorked=employeesDetails.employees
+            .Where(r=>r.departmentId==i.id).SelectMany(s=>s.empprojects).Sum(total=>total.hoursWorked),
+            AverageEvaluationScore=employeesDetails.employees
+            .Where(r=>r.departmentId==i.id).SelectMany(s=>s.evaluations).Average(j=>j.score)
+         }).GroupBy(i=>i.DepartmentName);
+        foreach(var i in ans10)
+        {
+            Console.WriteLine($"DepartmentName : {i.Key}");
+            foreach(var k in i)
+            {
+                Console.WriteLine($"Number of Employees : {k.NumberOfEmployees} , TotalHoursWorked:{k.TotalHoursWorked} ,  AverageEvaluationScore : {k.AverageEvaluationScore} ");
+            }
+        }
+ 
+
+
+
          Console.WriteLine("\n11. For each project, list the names of the employees involved, their roles, and the total hours worked on that project");
         var ans11=employeesDetails.employees.SelectMany(i=>i.empprojects.Select(
             j=>new{
@@ -231,9 +253,9 @@ class Task3 : datas
     
     
         // Console.WriteLine("\n5.Find all projects that have a deadline within the next 6 months and list the employees involved in those projects.");
-        // Console.WriteLine("\n6. List employees who have worked on more than one project in a managerial role (e.g., \"Lead\" or \"Manager\").");
-       // Console.WriteLine("\n10. Create a summary report listing each department's name, total number of employees, total hours worked on projects, and average evaluation score."); 
-    
-    
+
+         Console.WriteLine("\n6. List employees who have worked on more than one project in a managerial role (e.g., \"Lead\" or \"Manager\").");
+        var ans5=
+   
     }
 }
