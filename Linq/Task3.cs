@@ -255,7 +255,20 @@ class Task3 : datas
         // Console.WriteLine("\n5.Find all projects that have a deadline within the next 6 months and list the employees involved in those projects.");
 
          Console.WriteLine("\n6. List employees who have worked on more than one project in a managerial role (e.g., \"Lead\" or \"Manager\").");
-        var ans5=
-   
+        var ans6=employeesDetails.employees 
+        .Where(i=>i.empprojects.Count(j=>j.role.Contains("Manager"))>1).Select(p=>new{EmpName=p.name});
+        if(ans6.Any())
+        {
+            foreach (var i in ans6)
+        {
+                Console.WriteLine(i);   
+        }
+        }
+        else
+        {
+            Console.WriteLine("No Employees worked on more than one project in a managerial role");
+        }
+        
+        
     }
 }
