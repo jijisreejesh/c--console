@@ -273,13 +273,22 @@ class Task3 : datas
         }
     
     
-    //   Console.WriteLine("\n5.Find all projects that have a deadline within the next 6 months and list the employees involved in those projects.");
-    //  System.TimeSpan duration = new System.TimeSpan(180, 0, 0, 0);
-    //  System.DateTime newDate1 = DateTime.Now.Add(duration);
+      Console.WriteLine("\n5.Find all projects that have a deadline within the next 6 months and list the employees involved in those projects.");
+     DateTime newDate = DateTime.Now.AddMonths(6);
 
-    //  var ans5=employeesDetails.projects.Where(i=>i.deadline<);
-       
-        
+     var ans5=employeesDetails.projects
+     .Where(i=>DateTime.TryParse(i.deadline,out DateTime deadlineDate)&&deadlineDate<newDate)
+     .Select(i=>i.name);
+
+     var finalAns5=employeesDetails.employees
+     .Where(i=>i.empprojects.Any(j=>ans5.Contains(j.name)))
+     .Select(k=>new {EmpName=k.name , ProjectName=k.empprojects.Where(j=>ans5.Contains(j.name)).Select(k=>k.name)});
+     foreach(var i  in finalAns5){
+        Console.WriteLine(i.EmpName);
+         foreach(var j in i.ProjectName){
+          Console.WriteLine(j);
+         }
+     }   
         
     }
 }
