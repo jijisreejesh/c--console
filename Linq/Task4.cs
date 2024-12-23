@@ -116,9 +116,16 @@ class Task4{
         };
 
 
-//  1. List all students proficient in "Machine Learning" who are below 22 years old and sort them by their grade point average (GPA) in descending order.
-
-
+Console.WriteLine("1. List all students proficient in \"Machine Learning\" who are below 22 years old and sort them by their grade point average (GPA) in descending order.");
+var ans1=StudentDetails.Students.Where(i=>i.Skills.Contains("Machine Learning")&& i.Age<22)
+.Select(i=>new{
+  StudentName=i.Name 
+})
+;
+foreach(var t in ans1)
+{
+  Console.WriteLine(t);
+}
 
 Console.WriteLine("2. Retrieve a list of students along with their major names, total credits completed, and the average grade they achieved.\n");
 var ans2=StudentDetails.Students.Select(i=>new {
