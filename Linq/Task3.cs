@@ -167,7 +167,8 @@ class Task3 : datas
           .Where(j => j.id == i.departmentId)
           .Select(j => j.name)
           .FirstOrDefault(),
-           EvaluationScore =  i.evaluations.Where(h=>h.year==2023).Average(r=>r.score)
+        //    EvaluationScore =  i.evaluations.Where(h=>h.year==2023).Average(r=>r.score)
+         EvaluationScore =  i.evaluations.Where(h=>h.year==2023)
          })
           .GroupBy(k => k.DepartmentName);
         foreach (var i in ans4)
@@ -177,7 +178,7 @@ class Task3 : datas
             {
                 Console.WriteLine($"{j.EmployeeName}");
             }
-            var averageScore = i.Average(r => r.EvaluationScore);
+            var averageScore = i.Average(j=>j.EvaluationScore.Average(k=>k.score));
            Console.WriteLine($"Average Score of evaluation : {averageScore}");
         }
         
@@ -277,12 +278,13 @@ class Task3 : datas
      DateTime newDate = DateTime.Now.AddMonths(6);
 
      var ans5=employeesDetails.projects
-     .Where(i=>DateTime.TryParse(i.deadline,out DateTime deadlineDate)&&deadlineDate<newDate)
+     .Where(i=>DateTime.TryParse(i.deadline,out DateTime deadlineDate)&&deadlineDate<newDate &&deadlineDate>DateTime.Now)
      .Select(i=>i.name);
 
      var finalAns5=employeesDetails.employees
      .Where(i=>i.empprojects.Any(j=>ans5.Contains(j.name)))
      .Select(k=>new {EmpName=k.name , ProjectName=k.empprojects.Where(j=>ans5.Contains(j.name)).Select(k=>k.name)});
+
      foreach(var i  in finalAns5){
         Console.WriteLine(i.EmpName);
          foreach(var j in i.ProjectName){
