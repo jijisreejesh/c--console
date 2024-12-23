@@ -2,68 +2,71 @@
 using System.Text.Json;
 public class datas
 {
-    public string jsonString = @"
+public string jsonString=""" 
 {
-    ""employees"": [
-        {
-            ""id"": 1,
-            ""name"": ""Alice Johnson"",
-            ""age"": 30,
-            ""departmentId"": 1,
-            ""email"": ""alice.johnson@example.com"",
-            ""skills"": [""C#"", ""SQL"", ""Azure""],
-            ""empprojects"": [
-                {""name"": ""Project A"", ""hoursWorked"": 120, ""role"": ""Lead""},
-                {""name"": ""Project B"", ""hoursWorked"": 100, ""role"": ""Developer""}
-            ],
-            ""evaluations"": [
-                {""year"": 2023, ""score"": 4.5},
-                {""year"": 2022, ""score"": 4.7}
-            ]
-        },
-        {
-            ""id"": 2,
-            ""name"": ""Bob Smith"",
-            ""age"": 42,
-            ""departmentId"": 2,
-            ""email"": ""bob.smith@example.com"",
-            ""skills"": [""Marketing"", ""SEO"", ""Content Strategy""],
-            ""empprojects"": [
-                {""name"": ""Project A"", ""hoursWorked"": 200, ""role"": ""Manager""},
-                {""name"": ""Project C"", ""hoursWorked"": 150, ""role"": ""Consultant""}
-            ],
-            ""evaluations"": [
-                {""year"": 2023, ""score"": 4.2},
-                {""year"": 2022, ""score"": 4.0}
-            ]
-        },
-        {
-            ""id"": 3,
-            ""name"": ""Carol White"",
-            ""age"": 25,
-            ""departmentId"": 1,
-            ""email"": ""carol.white@example.com"",
-            ""skills"": [""JavaScript"", ""Vue.js"", ""CSS"",""SEO""],
-            ""empprojects"": [
-                {""name"": ""Project B"", ""hoursWorked"": 90, ""role"": ""Developer""},
-                {""name"": ""Project C"", ""hoursWorked"": 110, ""role"": ""Frontend Lead""}
-            ],
-            ""evaluations"": [
-                {""year"": 2023, ""score"": 4.8},
-                {""year"": 2022, ""score"": 4.5}
-            ]
-        }
-    ],
-    ""departments"": [
-        {""id"": 1, ""name"": ""Development""},
-        {""id"": 2, ""name"": ""Marketing""}
-    ],
-    ""projects"": [
-        {""name"": ""Project A"", ""budget"": 50000, ""deadline"": ""2024-12-31""},
-        {""name"": ""Project B"", ""budget"": 30000, ""deadline"": ""2024-06-30""},
-        {""name"": ""Project C"", ""budget"": 40000, ""deadline"": ""2024-09-30""}
-    ]
-}";
+  "employees": [
+    {
+      "id": 1,
+      "name": "Alice Johnson",
+      "age": 30,
+      "departmentId": 1,
+      "email": "alice.johnson@example.com",
+      "skills": ["C#", "SQL", "Azure"],
+      "empprojects": [
+        {"name": "Project A", "hoursWorked": 120, "role": "Lead"},
+        {"name": "Project B", "hoursWorked": 100, "role": "Developer"}
+      ],
+      "evaluations": [
+        {"year": 2023, "score": 4.5},
+        {"year": 2022, "score": 4.7}
+      ]
+    },
+    {
+      "id": 2,
+      "name": "Bob Smith",
+      "age": 42,
+      "departmentId": 2,
+      "email": "bob.smith@example.com",
+      "skills": ["Marketing", "SEO", "Content Strategy"],
+      "empprojects": [
+        {"name": "Project A", "hoursWorked": 200, "role": "Manager"},
+        {"name": "Project C", "hoursWorked": 150, "role": "Consultant"}
+      ],
+      "evaluations": [
+        {"year": 2023, "score": 4.2},
+        {"year": 2022, "score": 4.0}
+      ]
+    },
+    {
+      "id": 3,
+      "name": "Carol White",
+      "age": 25,
+      "departmentId": 1,
+      "email": "carol.white@example.com",
+      "skills": ["JavaScript", "Vue.js", "CSS"],
+      "empprojects": [
+        {"name": "Project B", "hoursWorked": 90, "role": "Developer"},
+        {"name": "Project C", "hoursWorked": 110, "role": "Frontend Lead"}
+      ],
+      "evaluations": [
+        {"year": 2023, "score": 4.8},
+        {"year": 2022, "score": 4.6}
+      ]
+    }
+  ],
+  "departments": [
+    {"id": 1, "name": "Development"},
+    {"id": 2, "name": "Marketing"}
+  ],
+  "projects": [
+    {"name": "Project A", "budget": 50000, "deadline": "2024-12-31"},
+    {"name": "Project B", "budget": 30000, "deadline": "2024-06-30"},
+    {"name": "Project C", "budget": 40000, "deadline": "2024-09-30"}
+  ]
+}
+"""; 
+
+
 }
 
 
@@ -164,9 +167,7 @@ class Task3 : datas
           .Where(j => j.id == i.departmentId)
           .Select(j => j.name)
           .FirstOrDefault(),
-             EvaluationScore = i.evaluations
-          .Where(r => r.year == 2023)
-          .Average(r => r.score)
+           EvaluationScore =  i.evaluations.Where(h=>h.year==2023).Average(r=>r.score)
          })
           .GroupBy(k => k.DepartmentName);
         foreach (var i in ans4)
@@ -175,10 +176,9 @@ class Task3 : datas
             foreach (var j in i)
             {
                 Console.WriteLine($"{j.EmployeeName}");
-                  // Console.WriteLine($"Average Score of evaluation : {j.EvaluationScore}");
             }
             var averageScore = i.Average(r => r.EvaluationScore);
-            Console.WriteLine($"Average Score of evaluation : {averageScore}");
+           Console.WriteLine($"Average Score of evaluation : {averageScore}");
         }
         
 
