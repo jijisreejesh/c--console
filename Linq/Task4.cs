@@ -119,15 +119,18 @@ class Task4{
 Console.WriteLine("1. List all students proficient in \"Machine Learning\" who are below 22 years old and sort them by their grade point average (GPA) in descending order.");
 var ans1=StudentDetails.Students.Where(i=>i.Skills.Contains("Machine Learning")&& i.Age<22)
 .Select(i=>new{
-  StudentName=i.Name 
-})
-;
+  StudentName=i.Name ,
+  AverageGrade = i.StudentCourses
+                .Where(c => gradeMap.ContainsKey(c.Grade))
+                .Select(d=> gradeMap[d.Grade])
+                .Average()
+}).OrderByDescending(j=>j.AverageGrade);
 foreach(var t in ans1)
 {
   Console.WriteLine(t);
 }
 
-Console.WriteLine("2. Retrieve a list of students along with their major names, total credits completed, and the average grade they achieved.\n");
+Console.WriteLine("\n2. Retrieve a list of students along with their major names, total credits completed, and the average grade they achieved.\n");
 var ans2=StudentDetails.Students.Select(i=>new {
      StudentName=i.Name,
      Major=StudentDetails.Majors.Where(j=>j.Name==i.Major).Select(k=>k.Name),
@@ -149,15 +152,52 @@ foreach(var i in ans2)
 }
 
 
-//3. Find all students who have received more than one award and list their names along with the names of the awards.
-
-
-//4. Group students by their major and calculate the total number of credits completed and the average GPA for each major.
-//5. Find all courses offered in the "Fall" semester that have a maximum of 4 credits and list the students enrolled in those courses.
-
-
-
-
-
-    }
+Console.WriteLine("\n3. Find all students who have received more than one award and list their names along with the names of the awards.");
+var ans3=StudentDetails.Students.Where(i=>i.Awards.Count()>1)
+.Select(s=>new {StudentName=s.Name , Award=s.Awards});
+foreach (var s in ans3)
+{
+    Console.WriteLine($"Student: {s.StudentName}");
+    Console.WriteLine("Awards: " + string.Join(", ", s.Award.Select(i=>i.Name)));
 }
+
+Console.WriteLine("4. Group students by their major and calculate the total number of credits completed and the average GPA for each major.");
+var ans4=StudentDetails.Students
+.GroupBy(s=>s.Major)
+.Select(i=>new{
+   Major=i.Key ,
+    TotalNumOfCredits=i.Sum(j=>j.StudentCourses.Sum(c=>c.Credits)),
+    AverageGPAForMajor=i.SelectMany(j => j.StudentCourses)
+                      .Where(c => gradeMap.ContainsKey(c.Grade))
+                      .Average(t=> gradeMap[t.Grade])
+
+});
+foreach (var s in ans4)
+{
+    Console.WriteLine(s);
+}
+
+Console.WriteLine("5. Find all courses offered in the \"Fall\" semester that have a maximum of 4 credits and list the students enrolled in those courses.");
+
+var ans5 = StudentDetails.Courses
+    .Where(c => c.Semester == "Fall" && c.MaxCredits <= 4)
+    .Select(i=> new
+    {
+        CourseName = i.Name,
+        StudentsEnrolled = StudentDetails.Students
+            .Where(student => student.StudentCourses.Any(sc => sc.Name ==i.Name))
+            .Select(student => student.Name)
+    });
+
+foreach (var c in ans5)
+{
+    Console.WriteLine(c);
+    Console.Write("Students: ");
+    foreach (var s in c.StudentsEnrolled)
+    {
+        Console.WriteLine(s);
+    }
+    
+}
+    
+}}
