@@ -161,14 +161,14 @@ foreach (var s in ans3)
     Console.WriteLine("Awards: " + string.Join(", ", s.Award.Select(i=>i.Name)));
 }
 
-Console.WriteLine("4. Group students by their major and calculate the total number of credits completed and the average GPA for each major.");
+Console.WriteLine("\n4. Group students by their major and calculate the total number of credits completed and the average GPA for each major.");
 var ans4=StudentDetails.Students
 .GroupBy(s=>s.Major)
 .Select(i=>new{
    Major=i.Key ,
     TotalNumOfCredits=i.Sum(j=>j.StudentCourses.Sum(c=>c.Credits)),
     AverageGPAForMajor=i.SelectMany(j => j.StudentCourses)
-                      .Where(c => gradeMap.ContainsKey(c.Grade))
+                      //.Where(c => gradeMap.ContainsKey(c.Grade))
                       .Average(t=> gradeMap[t.Grade])
 
 });
@@ -177,7 +177,7 @@ foreach (var s in ans4)
     Console.WriteLine(s);
 }
 
-Console.WriteLine("5. Find all courses offered in the \"Fall\" semester that have a maximum of 4 credits and list the students enrolled in those courses.");
+Console.WriteLine("\n5. Find all courses offered in the \"Fall\" semester that have a maximum of 4 credits and list the students enrolled in those courses.");
 
 var ans5 = StudentDetails.Courses
     .Where(c => c.Semester == "Fall" && c.MaxCredits <= 4)
@@ -191,11 +191,11 @@ var ans5 = StudentDetails.Courses
 
 foreach (var c in ans5)
 {
-    Console.WriteLine(c);
-    Console.Write("Students: ");
+    Console.WriteLine($"Course : { c.CourseName} ");
     foreach (var s in c.StudentsEnrolled)
     {
         Console.WriteLine(s);
+      
     }
     
 }
